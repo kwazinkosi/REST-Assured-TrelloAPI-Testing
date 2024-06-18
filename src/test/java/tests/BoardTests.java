@@ -29,8 +29,8 @@ public class BoardTests {
 		log = LogManager.getLogger(this.getClass());
 		System.out.println("\n\n+====================== Board Tests =====================+\n"
 							 + "+--------------------------------------------------------+\n");
-		log.info("\n\n+====================== Board Tests =====================+\n"
-				 + "+--------------------------------------------------------+\n");
+		log.info("\n\n+============================================== Board Tests ================================================+\n"
+				+ "+-----------------------------------------------------------------------------------------------------------+\n");
 		BoardEndPoints.setup();
 		boardPayload =new Board();
 		
@@ -50,7 +50,7 @@ public class BoardTests {
 		boardPayload.setDescription(desc);
 		
 		System.out.println("+---------------BoardTests setup Done!!----------------+\n");
-		log.info("+---------------BoardTests setup Done!!----------------+\n");
+		log.info("+--------------------BoardTests setup Done!!-------------------+\n");
 	}
 
 	@Test(priority = 1)
@@ -124,6 +124,7 @@ public class BoardTests {
 	public void testDeleteBoard() {
 		
 		System.out.println("+------- testDeleteBoard() -> Testing board deletability -------+\n");
+		log.info("+------- testDeleteBoard() -> Testing board deletability -------+\n");
 		
 		String boardID =test_data.getProperty("board_del_id");
 		Response res = BoardEndPoints.deleteBoard(boardID);
