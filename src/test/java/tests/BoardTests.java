@@ -1,6 +1,5 @@
 package tests;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -23,9 +22,6 @@ public class BoardTests {
 	@BeforeClass
 	public void setup(){
 		
-		String filePath = System.getProperty("user.dir") + File.separator + "logs";
-
-		System.setProperty("basePath", filePath);  
 		log = LogManager.getLogger(this.getClass());
 		System.out.println("\n\n+====================== Board Tests =====================+\n"
 							 + "+--------------------------------------------------------+\n");
@@ -35,7 +31,7 @@ public class BoardTests {
 		boardPayload =new Board();
 		
 		try {
-			test_data = FileManager.loadProperties("board_test_data.properties");
+			test_data = FileManager.loadProperties("test_data.properties");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,15 +55,14 @@ public class BoardTests {
 		System.out.println("+------ testBoardCreation() -> Testing new board creation -----+\n");
 		log.info("+------ testBoardCreation() -> Testing new board creation -----+\n");
 		Response res = BoardEndPoints.createBoard(boardPayload);
-//		res.then().log().all();
 		
 		String shortUrl= res.jsonPath().getString("shortUrl");
 		String boardId = shortUrl.replaceAll("^.*b/", ""); 
 		boardPayload.setId(boardId);
 		
 		try {
-			test_data = FileManager.updateProperties("board_test_data.properties", "board_id", boardId);
-			test_data = FileManager.updateProperties("board_test_data.properties", "board_get_id", boardId);
+			test_data = FileManager.updateProperties("test_data.properties", "board_id", boardId);
+			test_data = FileManager.updateProperties("test_data.properties", "board_get_id", boardId);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +77,7 @@ public class BoardTests {
 	public void testGetBoard() {
 		
 		System.out.println("+---------- testGetBoard() -> Testing board reading -----------+\n");
-		log.info("+---------- testGetBoard() -> Testing board reading -----------+\n");
+		log.info("+----------- testGetBoard() -> Testing board reading -----------+\n");
 		
 		String boardID = test_data.getProperty("board_get_id");
 		if (boardID.isEmpty()) boardID = boardPayload.getId();

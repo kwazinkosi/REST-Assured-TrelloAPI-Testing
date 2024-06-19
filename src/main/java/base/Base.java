@@ -1,8 +1,12 @@
 package base;
 
+import static io.restassured.RestAssured.*;
 import java.io.IOException;
 import java.util.Properties;
 
+import endpoints.ListEndPoints;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import utils.FileManager;
 
 public class Base {
@@ -51,5 +55,22 @@ public class Base {
 	    String url = String.format("%s%skey=%s&token=%s", base, urlSuffix, API_KEY, TOKEN);
 	    return url;
 	}
+	
+	public static Response getRequestById(String url, String id) {
+		
+		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", id)
+				.when().get(url);
 
+		return res;
+	}
+	
+	public static String getBoardId(String id, String urlType) {
+		
+		String url =  ListEndPoints.getUrl("base_url", urlType);
+		Response res = getRequestById(url, id);
+		res.then().log().all();
+		String idBoard = res.jsonPath().getString("id");
+		
+		return idBoard;
+	}
 }

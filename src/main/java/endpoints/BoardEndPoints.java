@@ -20,19 +20,19 @@ public class BoardEndPoints extends Base {
 	public static Response createBoard(Board payload) {
 
 		String boardName = payload.getBoardName();
-		String url = getUrl("board_base_url", "board_post_url");
+		String url = getUrl("base_url", "board_post_url");
 
-		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("name", boardName)
-				.body(payload).when().post(url);
+		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("name", boardName).body(payload)
+						.when().post(url);
 		return res;
 	}
 
 	// Get Board
 	public static Response getBoard(String boardID) {
 
-		String url = getUrl("board_base_url", "board_get_url");
-		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", boardID).when()
-				.get(url);
+		String url = getUrl("base_url", "board_get_url");
+		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", boardID)
+						.when().get(url);
 
 		return res;
 	}
@@ -47,7 +47,7 @@ public class BoardEndPoints extends Base {
 		parameters.put("name", boardName);
 		parameters.put("desc", desc);
 
-		String url = getUrl("board_base_url", "board_get_url");
+		String url = getUrl("base_url", "board_get_url");
 
 		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", boardID).queryParams(parameters).body(payload)
 						.when().put(url);
@@ -58,7 +58,7 @@ public class BoardEndPoints extends Base {
 	// Delete Board
 	public static Response deleteBoard(String boardID) {
 
-		String url = getUrl("board_base_url", "board_delete_url");
+		String url = getUrl("base_url", "board_delete_url");
 		Response res = given().pathParam("id", boardID)
 						.when().delete(url); 
 		return res;
