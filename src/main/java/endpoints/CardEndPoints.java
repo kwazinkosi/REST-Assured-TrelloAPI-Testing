@@ -19,24 +19,24 @@ public class CardEndPoints extends Base {
 	// Create Board
 	public static Response createCard(Card payload) {
 
-		String cardName = payload.getCardName();
+		String cardListID = payload.getIdList();
 		String url = getUrl("base_url", "card_post_url");
 
-		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("name", cardName).body(payload)
+		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("idList", cardListID).body(payload)
 						.when().post(url);
 		return res;
 	}
 
-	/*// Get Board
-	public static Response getBoard(String listID) {
+	// Get Board
+	public static Response getCard(String cardID) {
 
-		String url = getUrl("base_url", "list_get_url");
-		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", listID)
+		String url = getUrl("base_url", "card_get_url");
+		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", cardID)
 						.when().get(url);
 
 		return res;
 	}
-
+/*
 	// Update Board
 	public static Response updateBoard(List payload) {
 

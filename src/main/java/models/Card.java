@@ -2,27 +2,34 @@ package models;
 
 public class Card {
 	
-	public String listId;
-	public String cardName;
-	public String cardDesc;
+	public String idList;
+	public String name;
+	public String desc;
+	public String cardId;
 	
-	public String getListId() {
-		return listId;
+	public String getCardId() {
+		return cardId;
 	}
-	public void setListId(String listId) {
-		this.listId = listId;
+	public void setCardId(String cardId) {
+		this.cardId = cardId;
 	}
-	public String getCardName() {
-		return cardName;
+	public String getIdList() {
+		return idList;
 	}
-	public void setCardName(String cardName) {
-		this.cardName = cardName;
+	public void setIdList(String idList) {
+		this.idList = idList;
 	}
-	public String getCardDesc() {
-		return cardDesc;
+	public String getName() {
+		return name;
 	}
-	public void setCardDesc(String cardDesc) {
-		this.cardDesc = cardDesc;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 	
 }

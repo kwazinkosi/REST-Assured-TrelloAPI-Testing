@@ -125,7 +125,6 @@ public class  ListTests {
 		String listNameDel = test_data.getProperty("list_del_name");
 		String url =  ListEndPoints.getUrl("base_url", "board_getlists_url");
 		Response res = ListEndPoints.getRequestById(url, boardID);
-		res.then().log().all();
 		String id = res.jsonPath().getString("find { it.name == '" + listNameDel + "' }.id");		
 		
 		try {
