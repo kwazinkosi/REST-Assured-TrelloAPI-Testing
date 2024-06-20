@@ -37,11 +37,13 @@ public class Base {
 		}
 	}
 	
+	// Get API routes or urIs
 	public static Properties getRoutes() {
 		
 		return route_props;
 	}
 	
+	// Get the url of a specific API
 	public static String getUrl(String baseUrl, String urlType) {
 	    Properties routes = getRoutes(); // Store routes in a variable
 
@@ -56,6 +58,7 @@ public class Base {
 	    return url;
 	}
 	
+	// Get the response of the given url with the specified id
 	public static Response getRequestById(String url, String id) {
 		
 		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", id)

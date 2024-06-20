@@ -36,31 +36,32 @@ public class CardEndPoints extends Base {
 
 		return res;
 	}
-/*
-	// Update Board
-	public static Response updateBoard(List payload) {
 
-		String listID = payload.getId();
-		String boardName = payload.getBoardName();
-		String desc = payload.getDescription();
+	// Update Board
+	public static Response updateCard(Card payload) {
+
+		String cardID = payload.getCardId();
+		String cardName = payload.getName();
+		String desc = payload.getDesc();
 		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("name", boardName);
+		parameters.put("name", cardName);
 		parameters.put("desc", desc);
 
-		String url = getUrl("base_url", "list_get_url");
+		String url = getUrl("base_url", "card_get_url");
 
-		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", listID).queryParams(parameters).body(payload)
+		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", cardID).queryParams(parameters).body(payload)
 						.when().put(url);
 
 		return res;
 	}
 
-	// Delete Board
-	public static Response deleteBoard(String boardID) {
+	// Delete Card
+	public static Response deleteCard(String id, String cardNameDel) {
 
-		String url = getUrl("base_url", "board_delete_url");
-		Response res = given().pathParam("id", boardID)
+		String url = getUrl("base_url", "card_delete_url");
+		
+		Response res = given().pathParam("id", id)
 						.when().delete(url); 
 		return res;
-	}*/
+	}
 }

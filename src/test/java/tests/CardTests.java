@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import endpoints.CardEndPoints;
-import endpoints.ListEndPoints;
 import io.restassured.response.Response;
 import models.Card;
 import utils.FileManager;
@@ -69,21 +68,63 @@ public class CardTests {
 	}
 	
 	@Test(priority = 2)
-	public void testGetList() {
+	public void testGetCard() {
 		
-		System.out.println("+---------- testGetList() -> Testing card reading -----------+\n");
-		log.info("+----------- testGetList() -> Testing card reading -----------+\n");
+		System.out.println("+---------- testGetCard() -> Testing card reading -----------+\n");
+		log.info("+----------- testGetCard() -> Testing card reading -----------+\n");
 		
-		// if the list id is not specified, use the list id of the previously created list
-		String cardID = test_data.getProperty("card_list_id");
+		// if the card id is not specified, use the card id of the previously created card
+		String cardID = test_data.getProperty("card_id");
 		if (cardID.isEmpty()) cardID = cardPayload.getCardId();
 		
 		Response res = CardEndPoints.getCard(cardID);
 	
 		res.then().log().all();
 		Assert.assertEquals(res.getStatusCode(), 200);
-		
+		Assert.assertTrue(test_data.getProperty("card_name").equals(res.jsonPath().getString("name")));
 		System.out.println("=== testGetCard() PASSED!!");
 		log.info("	=== testGetLCard() PASSED!! ===\n");
+	}
+	
+	@Test(priority = 3)
+	public void testUpdateCard() {
+		
+		System.out.println("+------- testUpdateCard() -> Testing card updatability -------+\n");
+		log.info("+------- testUpdateCard() -> Testing board updatability -------+\n");
+		
+		String newCardName = test_data.getProperty("new_card_name").trim();
+		cardPayload.setName(newCardName);
+		
+		Response res = CardEndPoints.updateCard(cardPayload);
+		String CardName= res.jsonPath().getString("name");
+		
+		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(CardName, newCardName);
+		
+		System.out.println("=== testUpdateCard() PASSED!!");	
+		log.info("	=== testUpdateCard() PASSED!! ===\n");	
+	}
+	
+	@Test(priority = 4)
+	public void testDeleteCard() {
+		
+		System.out.println("+------- testDeleteCard() -> Testing card deletability -------+\n");
+		log.info("+------- testDeleteCard() -> Testing card deletability -------+\n");
+		
+		String listID = cardPayload.getIdList();
+		String cardNameDel = test_data.getProperty("card_del_name");
+		String url =  CardEndPoints.getUrl("base_url", "list_get_cards_url");
+		Response res = CardEndPoints.getRequestById(url, listID); // list of cards in an array
+		res.then().log().all();
+		String id = res.jsonPath().getString("find { it.name == '" + cardNameDel + "' }.id");		
+		
+		Response resD = CardEndPoints.deleteCard(id, cardNameDel);
+		resD.then().log().all();
+		
+		String value= resD.jsonPath().getString("_value");
+		Assert.assertEquals(resD.getStatusCode(), 200);
+		Assert.assertEquals(value, null);
+		System.out.println("=== testDeleteCard() PASSED!!");
+		log.info("	=== testDeleteCard() PASSED!! ===\n");
 	}
 }
