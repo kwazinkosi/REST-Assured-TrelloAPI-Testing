@@ -16,7 +16,7 @@ public class BoardEndPoints extends Base {
 		super();
 	}
 
-	// Create Board
+	// Create a new Board
 	public static Response createBoard(Board payload) {
 
 		String boardName = payload.getBoardName();
@@ -43,6 +43,7 @@ public class BoardEndPoints extends Base {
 		String boardID = payload.getId();
 		String boardName = payload.getBoardName();
 		String desc = payload.getDescription();
+		// create query parameters
 		Map<String, String> parameters = new HashMap<String, String>();
 		parameters.put("name", boardName);
 		parameters.put("desc", desc);

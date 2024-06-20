@@ -3,15 +3,15 @@ package models;
 public class Board {
 	
 	String id;
-	String boardName;
-	String description;
+	String name;
+	String desc;
 	
 	
 	public String getDescription() {
-		return description;
+		return desc;
 	}
 	public void setDescription(String description) {
-		this.description = description;
+		this.desc = description;
 	}
 	public String getId() {
 		return id;
@@ -20,10 +20,10 @@ public class Board {
 		this.id = id;
 	}
 	public String getBoardName() {
-		return boardName;
+		return name;
 	}
 	public void setBoardName(String boardName) {
-		this.boardName = boardName;
+		this.name = boardName;
 	}
 	
 }

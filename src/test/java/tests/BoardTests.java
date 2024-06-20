@@ -96,7 +96,7 @@ public class BoardTests {
 		System.out.println("+------- testUpdateBoard() -> Testing board updatability -------+\n");
 		log.info("+------- testUpdateBoard() -> Testing board updatability -------+\n");
 		
-		String newBoardName = test_data.getProperty("new_board_name");
+		String newBoardName = test_data.getProperty("new_board_name").trim();
 		String desc = test_data.getProperty("desc_update");
 		
 		boardPayload.setBoardName(newBoardName);
@@ -131,4 +131,8 @@ public class BoardTests {
 		System.out.println("=== testDeleteBoard() PASSED!!");
 		log.info("	=== testDeleteBoard() PASSED!! ===\n");
 	}
+	
+	// ======== Negative tests =============
+	
+	
 }

@@ -127,4 +127,7 @@ public class CardTests {
 		System.out.println("=== testDeleteCard() PASSED!!");
 		log.info("	=== testDeleteCard() PASSED!! ===\n");
 	}
+	
+	// =================== Negative Tests ===================
+	
 }

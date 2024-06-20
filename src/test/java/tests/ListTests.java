@@ -9,10 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import endpoints.BoardEndPoints;
 import endpoints.ListEndPoints;
-import endpoints.ListEndPoints;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import models.List;
 import utils.FileManager;
@@ -82,7 +79,7 @@ public class  ListTests {
 		log.info("+----------- testGetList() -> Testing board reading -----------+\n");
 		
 		// if the list id is not specified, use the list id of the previously created list
-		String listID = test_data.getProperty("list_id");
+		String listID = test_data.getProperty("list_id").trim();
 		if (listID.isEmpty()) listID = listPayload.getListID();
 		
 		Response res = ListEndPoints.getList(listID);
@@ -143,5 +140,7 @@ public class  ListTests {
 		System.out.println("=== testDeleteList() PASSED!!");
 		log.info("	=== testDeleteList() PASSED!! ===\n");
 	}
+	
+	// =================== Negative Tests ===================
 	
 }

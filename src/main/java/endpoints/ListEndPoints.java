@@ -2,13 +2,9 @@ package endpoints;
 
 import static io.restassured.RestAssured.given;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import base.Base;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import models.Board;
 import models.List;
 
 public class ListEndPoints extends Base {
@@ -44,14 +40,9 @@ public class ListEndPoints extends Base {
 	public static Response updateList(List payload) {
 
 		String listID = payload.getListID();
-		String listName = payload.getListName();
-		String listPos = payload.getPos();
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("name", listName);
-		parameters.put("pos", listPos);
 		String url = getUrl("base_url", "list_get_url");
 
-		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", listID).queryParams(parameters).body(payload)
+		Response res = given().contentType(ContentType.JSON).accept(ContentType.JSON).pathParam("id", listID).body(payload)
 						.when().put(url);
 
 		return res;

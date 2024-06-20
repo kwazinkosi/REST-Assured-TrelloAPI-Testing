@@ -3,15 +3,15 @@ package models;
 public class List {
 
 	public String idBoard; //ID of the List to copy into the new List
-	public String listName; //Name for the list
-	public String listID;
+	public String name; //Name for the list
+	public String idListSource;
 	public String pos;
 	
 	public String getListID() {
-		return listID;
+		return idListSource;
 	}
 	public void setListID(String listID) {
-		this.listID = listID;
+		this.idListSource = listID;
 	}
 	public String getPos() {
 		return pos;
@@ -26,10 +26,10 @@ public class List {
 		this.idBoard = idBoard;
 	}
 	public String getListName() {
-		return listName;
+		return name;
 	}
 	public void setListName(String listName) {
-		this.listName = listName;
+		this.name = listName;
 	}
 	
 }
