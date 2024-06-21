@@ -67,7 +67,7 @@ public class  ListTests {
 			e.printStackTrace();
 		}
 		
-		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(res.getStatusCode(), ListEndPoints.SUCCESS);
 		System.out.println("=== testListCreation() PASSED!!");
 		log.info("	=== testListCreation() PASSED!! ===\n");
 	}
@@ -85,7 +85,7 @@ public class  ListTests {
 		Response res = ListEndPoints.getList(listID);
 	
 		res.then().log().all();
-		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(res.getStatusCode(), ListEndPoints.SUCCESS);
 		
 		System.out.println("=== testGetList() PASSED!!");
 		log.info("	=== testGetList() PASSED!! ===\n");
@@ -105,7 +105,7 @@ public class  ListTests {
 		Response res = ListEndPoints.updateList(listPayload);
 		String ListName= res.jsonPath().getString("name");
 		
-		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(res.getStatusCode(), ListEndPoints.SUCCESS);
 		Assert.assertEquals(ListName, newListName);
 		
 		System.out.println("=== testUpdateList() PASSED!!");	
@@ -131,16 +131,21 @@ public class  ListTests {
 			e.printStackTrace();
 		}
 		
-		Response resD = ListEndPoints.deleteList(id, listNameDel);
+		Response resP = ListEndPoints.deleteList(id, listNameDel);
+		resP.then().log().all();
 		
-		String value= resD.jsonPath().getString("_value");
-		resD.then().log().all();
-		Assert.assertEquals(resD.getStatusCode(), 200);
+		String value= resP.jsonPath().getString("_value");
+		
+		Assert.assertEquals(resP.getStatusCode(), ListEndPoints.SUCCESS);
 		Assert.assertEquals(value, null);
+		
+		// Negative scenario: deleting already deleted list
+		Response resN = ListEndPoints.deleteList(id, listNameDel);
+		resN.then().log().all();
+		
+		Assert.assertEquals(resN.getStatusCode(), ListEndPoints.NOT_FOUND);
 		System.out.println("=== testDeleteList() PASSED!!");
 		log.info("	=== testDeleteList() PASSED!! ===\n");
 	}
-	
-	// =================== Negative Tests ===================
 	
 }

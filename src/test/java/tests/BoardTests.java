@@ -68,7 +68,7 @@ public class BoardTests {
 			e.printStackTrace();
 		}
 		
-		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(res.getStatusCode(), BoardEndPoints.SUCCESS);
 		System.out.println("=== testBoardCreation() PASSED!!");
 		log.info("	=== testBoardCreation() PASSED!! ===\n");
 	}
@@ -84,7 +84,7 @@ public class BoardTests {
 		
 		Response res = BoardEndPoints.getBoard(boardID);
 	
-		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(res.getStatusCode(), BoardEndPoints.SUCCESS);
 		
 		System.out.println("=== testGetBoard() PASSED!!");
 		log.info("	=== testGetBoard() PASSED!! ===\n");
@@ -103,7 +103,7 @@ public class BoardTests {
 		boardPayload.setDescription(desc);
 		Response res = BoardEndPoints.updateBoard(boardPayload);
 		
-		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(res.getStatusCode(), BoardEndPoints.SUCCESS);
 		
 		String boardName= res.jsonPath().getString("name");
 		String description= res.jsonPath().getString("desc");
@@ -126,13 +126,38 @@ public class BoardTests {
 
 		String value= res.jsonPath().getString("_value");
 		
-		Assert.assertEquals(res.getStatusCode(), 200);
+		Assert.assertEquals(res.getStatusCode(), BoardEndPoints.SUCCESS);
 		Assert.assertEquals(value, null);
 		System.out.println("=== testDeleteBoard() PASSED!!");
 		log.info("	=== testDeleteBoard() PASSED!! ===\n");
 	}
 	
-	// ======== Negative tests =============
-	
+	@Test(priority = 5)
+	public void testDeletedBoard() {
+		
+		System.out.println("+------- testDeletedBoard() -> Testing deleted board deletability -------+\n");
+		log.info("+------- testDeletedBoard() -> Testing deleted board deletability -------+\n");
+		
+		String boardID =test_data.getProperty("board_del_id");
+		Response res = BoardEndPoints.deleteBoard(boardID);
+		res.then().log().all();
+		Assert.assertEquals(res.getStatusCode(), BoardEndPoints.NOT_FOUND); //if board is not found
+		System.out.println("=== testDeletedBoard() PASSED!!");
+		log.info("	=== testDeletedBoard() PASSED!! ===\n");
+	}
+	@Test(priority = 6)
+	public void testGetBoardInvalid() {
+		
+		System.out.println("+---------- testGetBoard() -> Testing Invalid board reading -----------+\n");
+		log.info("+----------- testGetBoard() -> Testing Invalid board reading -----------+\n");
+		
+		String boardID = test_data.getProperty("invalid_board_id");
+		Response res = BoardEndPoints.getBoard(boardID);
+		res.then().log().all();
+		Assert.assertEquals(res.getStatusCode(), BoardEndPoints.BAD_REQUEST);
+		
+		System.out.println("=== testGetInvalidBoard() PASSED!!");
+		log.info("	=== testGetInvalidBoard() PASSED!! ===\n");
+	}
 	
 }
